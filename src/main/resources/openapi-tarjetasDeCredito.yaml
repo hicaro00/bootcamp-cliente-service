@@ -1,0 +1,90 @@
+swagger: "3.0.0"
+info:
+  title: Microservicio de Tarjetas de Crédito
+  version: 1.0.0
+  description: API para gestionar tarjetas de crédito.
+
+paths:
+  /tarjetas_de_credito/{tarjeta_id}:
+    get:
+      summary: Obtener información de una tarjeta de crédito
+      parameters:
+        - name: tarjeta_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Información detallada de la tarjeta de crédito.
+
+  /tarjetas_de_credito:
+    post:
+      summary: Crear una nueva tarjeta de crédito
+      parameters:
+        - name: Tarjeta de Crédito
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/TarjetaDeCredito"
+      responses:
+        201:
+          description: Tarjeta de crédito creada con éxito.
+
+  /tarjetas_de_credito/{tarjeta_id}:
+    put:
+      summary: Actualizar información de una tarjeta de crédito
+      parameters:
+        - name: tarjeta_id
+          in: path
+          required: true
+          type: string
+        - name: Tarjeta de Crédito
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/TarjetaDeCredito"
+      responses:
+        200:
+          description: Información de la tarjeta de crédito actualizada.
+
+  /tarjetas_de_credito/{tarjeta_id}:
+    delete:
+      summary: Eliminar una tarjeta de crédito
+      parameters:
+        - name: tarjeta_id
+          in: path
+          required: true
+          type: string
+      responses:
+        204:
+          description: Tarjeta de crédito eliminada con éxito.
+
+  /clientes/{cliente_id}/tarjetas_de_credito:
+    get:
+      summary: Consultar tarjetas de crédito de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Lista de tarjetas de crédito del cliente.
+
+definitions:
+  TarjetaDeCredito:
+    type: object
+    properties:
+      cliente_id:
+        type: string
+      tipo_tarjeta:
+        type: string
+        enum:
+          - Personal
+          - Empresarial
+      limite_credito:
+        type: number
+      saldo_pendiente:
+        type: number
+
+

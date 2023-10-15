@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +15,5 @@ public class Customer {
     @Id
     private String id;
     private String name;
-    //tipo de cliente  personal o empresarial
-    private String clientType;
+    private String clientType; //tipo de cliente  personal o empresarial
 }

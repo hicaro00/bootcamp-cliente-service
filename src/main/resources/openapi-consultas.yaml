@@ -1,0 +1,74 @@
+swagger: "3.0.0"
+info:
+  title: Microservicio de Consultas
+  version: 1.0.0
+  description: API para realizar consultas sobre cuentas bancarias y tarjetas de crédito.
+
+paths:
+  /clientes/{cliente_id}/cuentas_bancarias:
+    get:
+      summary: Consultar cuentas bancarias de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Lista de cuentas bancarias del cliente.
+
+  /cuentas_bancarias/{cuenta_id}/saldo:
+    get:
+      summary: Consultar saldo de una cuenta bancaria
+      parameters:
+        - name: cuenta_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Saldo de la cuenta bancaria.
+
+  /clientes/{cliente_id}/tarjetas_de_credito:
+    get:
+      summary: Consultar tarjetas de crédito de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Lista de tarjetas de crédito del cliente.
+
+  /tarjetas_de_credito/{tarjeta_id}/limite_credito:
+    get:
+      summary: Consultar límite de crédito de una tarjeta de crédito
+      parameters:
+        - name: tarjeta_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Límite de crédito de la tarjeta de crédito.
+
+  /cuentas_bancarias/{cuenta_id}/movimientos:
+    get:
+      summary: Consultar movimientos de una cuenta bancaria
+      parameters:
+        - name: cuenta_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Lista de movimientos de la cuenta bancaria.
+
+definitions:
+  SaldoCuentaBancaria:
+    type: object
+    properties:
+      saldo:
+        type: number
+

@@ -1,15 +1,13 @@
 package com.lizana.customermicroservice.infrastructure.inputPort;
 
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
-import com.lizana.customermicroservice.domain.entity.Customer;
-import com.lizana.customermicroservice.infrastructure.outputPort.CustomerRepository;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
+@Service
 public interface CustomerService {
 
     public Flux<CustomerDto>  getCustomers ();
-
     public Mono<CustomerDto> getById(String id);
     public Mono<CustomerDto> saveCustomer(Mono<CustomerDto> customerDtoMono);
     public Mono<CustomerDto> updateCustomer(Mono<CustomerDto> customerDtoMono, String id);

@@ -2,7 +2,6 @@ package com.lizana.customermicroservice.application.ServiceImpl;
 
 import com.lizana.customermicroservice.domain.appUtils.CustomerUtils;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
-import com.lizana.customermicroservice.domain.entity.Customer;
 import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
 import com.lizana.customermicroservice.infrastructure.outputPort.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class CostomerServiceImpl implements CustomerService {
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerRepository customerRepository ;
 
     @Override
     public Flux<CustomerDto> getCustomers() {

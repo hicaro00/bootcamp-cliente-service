@@ -1,0 +1,90 @@
+swagger: "3.0.0"
+info:
+  title: Microservicio de Créditos
+  version: 1.0.0
+  description: API para gestionar créditos.
+
+paths:
+  /creditos/{credito_id}:
+    get:
+      summary: Obtener información de un crédito
+      parameters:
+        - name: credito_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Información detallada del crédito.
+
+  /creditos:
+    post:
+      summary: Crear un nuevo crédito
+      parameters:
+        - name: Crédito
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Credito"
+      responses:
+        201:
+          description: Crédito creado con éxito.
+
+  /creditos/{credito_id}:
+    put:
+      summary: Actualizar información de un crédito
+      parameters:
+        - name: credito_id
+          in: path
+          required: true
+          type: string
+        - name: Crédito
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Credito"
+      responses:
+        200:
+          description: Información del crédito actualizada.
+
+  /creditos/{credito_id}:
+    delete:
+      summary: Eliminar un crédito
+      parameters:
+        - name: credito_id
+          in: path
+          required: true
+          type: string
+      responses:
+        204:
+          description: Crédito eliminado con éxito.
+
+  /clientes/{cliente_id}/creditos:
+    get:
+      summary: Consultar créditos de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Lista de créditos del cliente.
+
+definitions:
+  Credito:
+    type: object
+    properties:
+      cliente_id:
+        type: string
+      tipo_credito:
+        type: string
+        enum:
+          - Personal
+          - Empresarial
+      tasa_interes:
+        type: number
+      saldo_pendiente:
+        type: number
+
+
