@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Microservicio de Clientes - API
+  description: API para gestionar la información de los clientes del banco
+  version: 1.0.0
+
+paths:
+  /clientes/{cliente_id}:
+    get:
+      summary: Obtener información de un cliente
+      parameters:
+        - name: client_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        200:
+          description: Información del cliente obtenida correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+
+    put:
+      summary: Actualizar información de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      requestBody:
+        description: Datos actualizados del cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cliente"
+      responses:
+        200:
+          description: Información del cliente actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+
+    delete:
+      summary: Eliminar un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        204:
+          description: Cliente eliminado correctamente
+
+  /clientes/:
+    post:
+      summary: Crear un nuevo cliente
+      requestBody:
+        description: Datos del nuevo cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cliente"
+      responses:
+        201:
+          description: Cliente creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+
+  /clientes/{cliente_id}/cuentas_bancarias:
+    get:
+      summary: Obtener cuentas bancarias de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        200:
+          description: Cuentas bancarias del cliente obtenidas correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CuentaBancaria"
+
+  /clientes/{cliente_id}/creditos:
+    get:
+      summary: Obtener créditos de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        200:
+          description: Créditos del cliente obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credito"
+
+  /clientes/{cliente_id}/tarjetas_de_credito:
+    get:
+      summary: Obtener tarjetas de crédito de un cliente
+      parameters:
+        - name: cliente_id
+          in: path
+          required: true
+          description: ID del cliente
+          schema:
+            type: string
+      responses:
+        200:
+          description: Tarjetas de crédito del cliente obtenidas correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TarjetaDeCredito"
+
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único del cliente
+        nombre:
+          type: string
+          description: Nombre del cliente
+        tipo:
+          type: string
+          description: Tipo de cliente (personal o empresarial)
+
+    CuentaBancaria:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único de la cuenta bancaria
+        tipo:
+          type: string
+          description: Tipo de cuenta bancaria
+        saldo:
+          type: number
+          description: Saldo de la cuenta bancaria
+
+    Credito:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único del crédito
+        tipo:
+          type: string
+          description: Tipo de crédito
+
+    TarjetaDeCredito:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único de la tarjeta de crédito
+        tipo:
+          type: string
+          description: Tipo de tarjeta de crédito
