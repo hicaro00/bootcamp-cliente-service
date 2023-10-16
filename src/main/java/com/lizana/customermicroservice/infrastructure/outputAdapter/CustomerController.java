@@ -4,6 +4,8 @@ import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,22 +17,30 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
+    @ResponseBody
     public Flux<CustomerDto> getCustomers(){
-        return customerService.getCustomers();
+        Flux<CustomerDto>customers = customerService.getCustomers();
+        return ResponseEntity.status(HttpStatus.OK).body(customers).getBody();
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public Mono<CustomerDto> getCustomer(@PathVariable String id){
-        return customerService.getById(id);
+        Mono<CustomerDto> getOneCustomer =customerService.getById(id);
+        return ResponseEntity.status(HttpStatus.GONE).body(getOneCustomer).getBody();
     }
 
     @PostMapping
-    public Mono<CustomerDto> postCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
-        return customerService.saveCustomer(customerDtoMono);
+    @ResponseBody
+    public Mono<ResponseEntity<CustomerDto>> postCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
+        return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
     }
+
     @PutMapping("/update/{id}")
+    @ResponseBody
     public Mono<CustomerDto> putCustomer (@RequestBody Mono<CustomerDto> customerDtoMono , String id){
-        return customerService.updateCustomer(customerDtoMono, id);
+        Mono<CustomerDto> putCustomer = customerService.updateCustomer(customerDtoMono, id);
+        return ResponseEntity.status(HttpStatus.OK).body(putCustomer).getBody();
     }
 
     @DeleteMapping("/delete/{id}")
