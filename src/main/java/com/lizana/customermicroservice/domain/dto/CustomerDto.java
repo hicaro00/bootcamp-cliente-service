@@ -1,5 +1,6 @@
 package com.lizana.customermicroservice.domain.dto;
 
+import com.lizana.customermicroservice.domain.objetos.ClientStatus;
 import com.lizana.customermicroservice.domain.objetos.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +15,5 @@ public class CustomerDto {
     private String ruc;
     private String name;
     private String clientType;
+    private ClientStatus clientStatus;
 }

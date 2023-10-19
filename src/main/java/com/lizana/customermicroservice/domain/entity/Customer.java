@@ -1,6 +1,7 @@
 package com.lizana.customermicroservice.domain.entity;
 
-import com.lizana.customermicroservice.domain.objetos.ClientType;
+import com.lizana.customermicroservice.domain.objetos.ClientStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,6 @@ public class Customer {
     private String ruc;
     private String name;
     private String clientType; //tipo de cliente  personal o empresarial
+    private ClientStatus clientStatus;
+
 }

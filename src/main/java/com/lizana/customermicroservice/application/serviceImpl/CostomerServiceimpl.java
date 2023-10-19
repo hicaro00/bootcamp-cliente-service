@@ -1,6 +1,6 @@
-package com.lizana.customermicroservice.application.ServiceImpl;
+package com.lizana.customermicroservice.application.serviceImpl;
 
-import com.lizana.customermicroservice.domain.appUtils.CustomerUtils;
+import com.lizana.customermicroservice.domain.apputils.CustomerUtils;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
 import com.lizana.customermicroservice.infrastructure.outputPort.CustomerRepository;
@@ -10,9 +10,12 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class CostomerServiceImpl implements CustomerService {
+public class CostomerServiceimpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository ;
+
+    @Autowired
+    private CustomerEventsService customerEventsService;
 
     @Override
     public Flux<CustomerDto> getCustomers() {
@@ -29,6 +32,7 @@ public class CostomerServiceImpl implements CustomerService {
         return customerDtoMono.map(CustomerUtils::dtoToEntity)
                 .flatMap(customerRepository::insert)
                 .map(CustomerUtils::entityToDto);
+
     }
 
     @Override

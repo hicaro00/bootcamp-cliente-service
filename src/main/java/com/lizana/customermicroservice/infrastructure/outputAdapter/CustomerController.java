@@ -1,5 +1,6 @@
 package com.lizana.customermicroservice.infrastructure.outputAdapter;
 
+import com.lizana.customermicroservice.application.serviceImpl.CustomerEventsService;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import reactor.core.publisher.Mono;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    CustomerEventsService customerEventsService;
 
     @GetMapping
     @ResponseBody
@@ -31,8 +34,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    @ResponseBody
     public Mono<ResponseEntity<CustomerDto>> postCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
+
         return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
     }
 

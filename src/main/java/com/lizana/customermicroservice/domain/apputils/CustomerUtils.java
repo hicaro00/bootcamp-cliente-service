@@ -1,10 +1,12 @@
-package com.lizana.customermicroservice.domain.appUtils;
+package com.lizana.customermicroservice.domain.apputils;
 
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.domain.entity.Customer;
 import org.springframework.beans.BeanUtils;
 
 public class CustomerUtils {
+    private CustomerUtils(){
+    }
     public static CustomerDto entityToDto(Customer customer){
         CustomerDto customerDto = new CustomerDto();
         BeanUtils.copyProperties(customer ,customerDto);

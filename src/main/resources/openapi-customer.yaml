@@ -143,12 +143,19 @@ components:
         dni:
           type: string
           description: documento de identidad
-        nombre:
+        ruc:
+          type: string
+          description: numero de ruc
+        name:
           type: string
           description: Nombre del cliente
-        tipo:
+        clientType:
           type: string
           description: Tipo de cliente (personal o empresarial)
+          pattern: ^(personal|empresarial)$
+        clientStatus:
+          $ref: "#/components/schemas/ClientStatus"
+
 
     CuentaBancaria:
       type: object
@@ -182,3 +189,13 @@ components:
         tipo:
           type: string
           description: Tipo de tarjeta de crédito
+    ClientStatus:
+      type: object
+      properties:
+        accountHolder:
+          type: boolean
+          description: autorizacion para firmar
+        signatory:
+          type: boolean
+          description: Titular de la cuenta
+
