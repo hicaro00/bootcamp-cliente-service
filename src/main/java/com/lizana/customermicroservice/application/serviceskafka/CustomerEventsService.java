@@ -1,7 +1,6 @@
-package com.lizana.customermicroservice.application.serviceImpl;
+package com.lizana.customermicroservice.application.serviceskafka;
 
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
-import com.lizana.customermicroservice.domain.entity.Customer;
 import com.lizana.customermicroservice.domain.objetos.Event;
 import com.lizana.customermicroservice.domain.objetos.EventType;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package com.lizana.customermicroservice.infrastructure.outputAdapter;
+package com.lizana.customermicroservice.infrastructure.outputadapter;
 
-import com.lizana.customermicroservice.application.serviceImpl.CustomerEventsService;
+import com.lizana.customermicroservice.application.serviceskafka.CustomerEventsService;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
 import lombok.extern.slf4j.Slf4j;

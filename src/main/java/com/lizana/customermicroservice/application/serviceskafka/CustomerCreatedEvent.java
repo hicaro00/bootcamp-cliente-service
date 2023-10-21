@@ -1,4 +1,4 @@
-package com.lizana.customermicroservice.application.serviceImpl;
+package com.lizana.customermicroservice.application.serviceskafka;
 
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.domain.objetos.Event;
