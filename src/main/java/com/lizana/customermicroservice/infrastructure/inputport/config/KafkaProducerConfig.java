@@ -1,4 +1,4 @@
-package com.lizana.customermicroservice.infrastructure.inputPort.config;
+package com.lizana.customermicroservice.infrastructure.inputport.config;
 
 import com.lizana.customermicroservice.domain.objetos.Event;
 import org.apache.kafka.clients.producer.ProducerConfig;

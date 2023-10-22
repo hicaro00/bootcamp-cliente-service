@@ -1,4 +1,4 @@
-package com.lizana.customermicroservice.infrastructure.inputPort;
+package com.lizana.customermicroservice.infrastructure.inputport;
 
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import org.springframework.stereotype.Service;

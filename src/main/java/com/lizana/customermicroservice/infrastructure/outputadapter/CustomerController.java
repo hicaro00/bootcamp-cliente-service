@@ -1,8 +1,10 @@
 package com.lizana.customermicroservice.infrastructure.outputadapter;
 
-import com.lizana.customermicroservice.application.serviceskafka.CustomerEventsService;
+
+import com.lizana.customermicroservice.domain.dto.BankAccountDto;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
-import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
+import com.lizana.customermicroservice.infrastructure.inputport.BankAccountService;
+import com.lizana.customermicroservice.infrastructure.inputport.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,9 @@ import reactor.core.publisher.Mono;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+
     @Autowired
-    CustomerEventsService customerEventsService;
+    BankAccountService bankAccountService;
 
     @GetMapping
     @ResponseBody
@@ -50,7 +53,11 @@ public class CustomerController {
     public Mono<Void> deleteCustomer (@PathVariable String id){
         return customerService.deleteCustomer(id);
     }
+    @PostMapping("/newaccount")
+    @CrossOrigin
+    public Mono<BankAccountDto> nueaccount(@RequestBody Mono<BankAccountDto> bankAccountDtoMono){
 
-
+        return bankAccountService.createdNewAccount(bankAccountDtoMono);
+    }
 
 }

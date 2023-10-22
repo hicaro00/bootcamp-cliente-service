@@ -4,7 +4,7 @@ import com.lizana.customermicroservice.application.serviceskafka.CustomerEventsS
 import com.lizana.customermicroservice.domain.apputils.CustomerUtils;
 import com.lizana.customermicroservice.domain.dto.CustomerDto;
 import com.lizana.customermicroservice.domain.objetos.ClientStatus;
-import com.lizana.customermicroservice.infrastructure.inputPort.CustomerService;
+import com.lizana.customermicroservice.infrastructure.inputport.CustomerService;
 import com.lizana.customermicroservice.infrastructure.outputPort.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
