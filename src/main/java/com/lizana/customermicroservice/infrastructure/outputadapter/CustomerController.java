@@ -37,7 +37,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<CustomerDto>> postCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
+    public Mono<ResponseEntity<CustomerDto>> createdCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
 
         return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
     }
@@ -53,11 +53,11 @@ public class CustomerController {
     public Mono<Void> deleteCustomer (@PathVariable String id){
         return customerService.deleteCustomer(id);
     }
-    @PostMapping("/newaccount")
+    @PostMapping("/newaccount/{customerid}")
     @CrossOrigin
-    public Mono<BankAccountDto> nueaccount(@RequestBody Mono<BankAccountDto> bankAccountDtoMono){
+    public Mono<BankAccountDto> nueaccount(@RequestBody Mono<BankAccountDto> bankAccountDtoMono, @PathVariable String customerid ){
 
-        return bankAccountService.createdNewAccount(bankAccountDtoMono);
+        return bankAccountService.createdNewAccount(bankAccountDtoMono, customerid);
     }
 
 }

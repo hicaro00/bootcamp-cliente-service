@@ -12,12 +12,11 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDto {
+
     private String id;
     private String dni;
     private String ruc;
     private String name;
-    @NotEmpty
-    @Pattern( regexp ="^(PERSONAL|BUSSINES)$", message = "clientType must be 'PERSONAL' or 'BUSSINES'")
     private String clientType;
     private ClientStatus clientStatus;
 }
