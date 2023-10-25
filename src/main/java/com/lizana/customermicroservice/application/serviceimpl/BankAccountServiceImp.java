@@ -15,7 +15,7 @@ public class BankAccountServiceImp implements BankAccountService {
     private WebClient webClient;
     @Override
     public Mono<BankAccountDto> createdNewAccount(Mono<BankAccountDto> bankAccountDtoMono, String customerid) {
-        return bankAccountDtoMono.map(bankAccountDto -> {bankAccountDto.setCustomerId(customerid);
+        return bankAccountDtoMono.map(bankAccountDto -> {bankAccountDto.setId(customerid);
                 bankAccountDto.setBalance(BigDecimal.ZERO);
                 return bankAccountDto;}).flatMap(dto -> webClient.post()
                 .uri("http://localhost:8090/account")
