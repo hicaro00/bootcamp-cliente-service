@@ -14,21 +14,15 @@ import java.math.BigDecimal;
 public class BankAccountDto {
 
 
+    private String id;//id del documento customer en mongo db
+    private String accountType;//Ahorro||Cuenta Corriente|| plazo fijo
+    private BigDecimal balance; //saldo de la cuenta
+    private String documentType; //dni||pasaporte||ruc
+    private String identificationNumber; //numero del ruc o dni
+    private String firstName; //nombre
+    private String lastName; //apellido
+    private String address;  //direccion
 
-    private String id;//id del coumento en mongo db
-    private String accountNumber;//numero unico de la cuenta
-    private AccountType accountType;//Ahorro||Cuenta Corriente|| plazo fijo
-    private BigDecimal balance;//saldo de la cuenta
 
-
-    public void setAccountType(AccountType accountType) {
-        if (accountType == AccountType.SAVINGS
-                || accountType == AccountType.CURRENTACCOUNT
-                || accountType == AccountType.FIXEDTERM) {
-            this.accountType = accountType;
-        } else {
-            throw new CustomException("El valor de accountType no es válido. Debe ser PERSONAL|BUSINESS.");
-        }
-    }
 
 }
