@@ -9,55 +9,86 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 @Slf4j
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+  @Autowired
+  private CustomerService customerService;
 
-    @Autowired
-    BankAccountService bankAccountService;
+  @Autowired
+  BankAccountService bankAccountService;
 
-    @GetMapping
-    @ResponseBody
-    public Flux<CustomerDto> getCustomers(){
-        Flux<CustomerDto>customers = customerService.getCustomers();
-        return ResponseEntity.status(HttpStatus.OK).body(customers).getBody();
-    }
+  @GetMapping
+  @ResponseBody
+  public Flux<CustomerDto> getCustomers() {
+	Flux<CustomerDto> customers = customerService.getCustomers();
+	return ResponseEntity.status(HttpStatus.OK).body(customers).getBody();
+  }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public Mono<CustomerDto> getCustomer(@PathVariable String id){
-        Mono<CustomerDto> getOneCustomer =customerService.getById(id);
-        return ResponseEntity.status(HttpStatus.GONE).body(getOneCustomer).getBody();
-    }
+  @GetMapping("/{id}")
+  @ResponseBody
+  public Mono<CustomerDto> getCustomer(@PathVariable String id) {
+	Mono<CustomerDto> getOneCustomer = customerService.getById(id);
+	return ResponseEntity.status(HttpStatus.GONE).body(getOneCustomer).getBody();
+  }
 
-    @PostMapping
-    public Mono<ResponseEntity<CustomerDto>> createdCustomer(@RequestBody Mono<CustomerDto> customerDtoMono){
+  @PostMapping
+  public Mono<ResponseEntity<CustomerDto>> createdCustomer(
+	  @RequestBody Mono<CustomerDto> customerDtoMono) {
 
-        return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
-    }
+	return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
+  }
 
-    @PutMapping("/update/{id}")
-    @ResponseBody
-    public Mono<CustomerDto> putCustomer (@RequestBody Mono<CustomerDto> customerDtoMono , String id){
-        Mono<CustomerDto> putCustomer = customerService.updateCustomer(customerDtoMono, id);
-        return ResponseEntity.status(HttpStatus.OK).body(putCustomer).getBody();
-    }
+  @PutMapping("/update/{id}")
+  @ResponseBody
+  public Mono<CustomerDto> putCustomer(@RequestBody Mono<CustomerDto> customerDtoMono,
+									   @PathVariable String id) {
+	Mono<CustomerDto> putCustomer = customerService.updateCustomer(customerDtoMono, id);
+	return ResponseEntity.status(HttpStatus.OK).body(putCustomer).getBody();
+  }
 
-    @DeleteMapping("/delete/{id}")
-    public Mono<Void> deleteCustomer (@PathVariable String id){
-        return customerService.deleteCustomer(id);
-    }
-    @PostMapping("/newaccount/{customerid}")
-    @CrossOrigin
-    public Mono<BankAccountDto> nueaccount(@RequestBody Mono<BankAccountDto> bankAccountDtoMono, @PathVariable String customerid ){
+  @DeleteMapping("/delete/{id}")
+  public Mono<Void> deleteCustomer(@PathVariable(name = "id") String id) {
+	return customerService.deleteCustomer(id);
+  }
 
-        return bankAccountService.createdNewAccount(bankAccountDtoMono, customerid);
-    }
+  @PostMapping("/newaccount")
+  @CrossOrigin
+  public Mono<BankAccountDto> nueaccount(
+	  @RequestBody BankAccountDto bankAccountDto) {
+	return bankAccountService.createdNewAccount(bankAccountDto);
+
+  }
+
+
+  @PutMapping("addbankaccount/{id}")
+  @CrossOrigin
+  public Mono<ResponseEntity<CustomerDto>> addBankAccount(
+	  @RequestBody Mono<CustomerDto> customerDtoMono, @PathVariable String id) {
+	return customerDtoMono.flatMap(customerDto -> {
+	  Mono<CustomerDto> existCustomerDtoMOno = customerService.getById(id);
+	  return existCustomerDtoMOno.map(existCustomerDto -> {
+			existCustomerDto.getBankAccounts().addAll(customerDto.getBankAccounts());
+			return existCustomerDto;
+		  }).flatMap(updatedCustomerDto -> {
+			return customerService.updateCustomer(Mono.just(updatedCustomerDto), id);
+		  }).map(update -> ResponseEntity.status(HttpStatus.OK).body(update))
+		  .defaultIfEmpty(ResponseEntity.notFound().build());
+	});
+  }
 
 }
