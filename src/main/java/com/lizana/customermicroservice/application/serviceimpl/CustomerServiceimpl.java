@@ -12,45 +12,45 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class CustomerServiceimpl implements CustomerService {
-    @Autowired
-    private CustomerRepository customerRepository;
+  @Autowired
+  private CustomerRepository customerRepository;
 
-    @Autowired
-    private CustomerEventsService customerEventsService;
+  @Autowired
+  private CustomerEventsService customerEventsService;
 
-    @Override
-    public Flux<CustomerDto> getCustomers() {
-        return customerRepository.findAll().map(CustomerUtils::entityToDto);
-    }
+  @Override
+  public Flux<CustomerDto> getCustomers() {
+	return customerRepository.findAll().map(CustomerUtils::entityToDto);
+  }
 
-    @Override
-    public Mono<CustomerDto> getById(String id) {
-        return customerRepository.findById(id).map(CustomerUtils::entityToDto);
-    }
+  @Override
+  public Mono<CustomerDto> getById(String id) {
+	return customerRepository.findById(id).map(CustomerUtils::entityToDto);
+  }
 
-    @Override
-    public Mono<CustomerDto> saveCustomer(Mono<CustomerDto> customerDtoMono) {
+  @Override
+  public Mono<CustomerDto> saveCustomer(Mono<CustomerDto> customerDtoMono) {
 
 
-        return customerDtoMono.map(CustomerUtils::dtoToEntity)
-                .flatMap(customerRepository::insert)
-                .map(CustomerUtils::entityToDto);
+	return customerDtoMono.map(CustomerUtils::dtoToEntity)
+		.flatMap(customerRepository::insert)
+		.map(CustomerUtils::entityToDto);
 
-    }
+  }
 
-    @Override
-    public Mono<CustomerDto> updateCustomer(Mono<CustomerDto> customerDtoMono, String id) {
-        return customerRepository.findById(id)
-                .flatMap(p -> customerDtoMono.map(CustomerUtils::dtoToEntity)
-                        .doOnNext(e -> e.setId(id)))
-                .flatMap(customerRepository::save)
-                .map(CustomerUtils::entityToDto);
-    }
+  @Override
+  public Mono<CustomerDto> updateCustomer(Mono<CustomerDto> customerDtoMono, String id) {
+	return customerRepository.findById(id)
+		.flatMap(p -> customerDtoMono.map(CustomerUtils::dtoToEntity)
+			.doOnNext(e -> e.setId(id)))
+		.flatMap(customerRepository::save)
+		.map(CustomerUtils::entityToDto);
+  }
 
-    @Override
-    public Mono<Void> deleteCustomer(String id) {
-        return customerRepository.deleteById(id);
-    }
+  @Override
+  public Mono<Void> deleteCustomer(String id) {
+	return customerRepository.deleteById(id);
+  }
 
 
 }
