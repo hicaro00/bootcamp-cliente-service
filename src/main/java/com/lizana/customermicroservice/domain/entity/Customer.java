@@ -3,16 +3,14 @@ package com.lizana.customermicroservice.domain.entity;
 import com.lizana.customermicroservice.domain.dto.AddressDto;
 import com.lizana.customermicroservice.domain.dto.BankacountsList;
 import com.lizana.customermicroservice.domain.dto.EmergencyContactDto;
-import com.lizana.customermicroservice.domain.enums.ClientType;
 import com.lizana.customermicroservice.domain.objetos.ClientStatus;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
@@ -26,7 +24,7 @@ public class Customer {
     private String lastName;    // apellido
     private String documentType;//dni||pasaporte||ruc
     private String identificationNumber; //numero correspondiente al documentType
-    private ClientType clientType; //tipo de cliente  personal o empresarial
+    private String clientType; //tipo de cliente  personal o empresarial
     private ClientStatus clientStatus; //firmante || titular
     private String profile; // vip || normal
     private String address; //direccion principal

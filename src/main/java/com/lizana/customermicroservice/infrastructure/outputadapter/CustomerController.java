@@ -27,7 +27,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/customer")
 public class CustomerController {
   @Autowired
-  private CustomerService customerService;
+  CustomerService customerService;
 
   @Autowired
   BankAccountService bankAccountService;
@@ -53,29 +53,23 @@ public class CustomerController {
 	return customerService.saveCustomer(customerDtoMono).map(ResponseEntity::ok);
   }
 
-  @PutMapping("/update/{id}")
-  @ResponseBody
-  public Mono<CustomerDto> putCustomer(@RequestBody Mono<CustomerDto> customerDtoMono,
-									   @PathVariable String id) {
-	Mono<CustomerDto> putCustomer = customerService.updateCustomer(customerDtoMono, id);
-	return ResponseEntity.status(HttpStatus.OK).body(putCustomer).getBody();
-  }
 
-  @DeleteMapping("/delete/{id}")
+
+  @DeleteMapping("/delete/{id}")    //borrar cliente
   public Mono<Void> deleteCustomer(@PathVariable(name = "id") String id) {
 	return customerService.deleteCustomer(id);
   }
 
-  @PostMapping("/newaccount")
+  @PostMapping("/newaccount")  // crea y asocia una nueva cuenta de banco
   @CrossOrigin
   public Mono<BankAccountDto> nueaccount(
 	  @RequestBody BankAccountDto bankAccountDto) {
-	return bankAccountService.createdNewAccount(bankAccountDto);
+	return bankAccountService.createdAdditionalAccount(bankAccountDto);
 
   }
 
 
-  @PutMapping("addbankaccount/{id}")
+  @PutMapping("/updatecustomer/{id}")  //actualiza solo el requerido
   @CrossOrigin
   public Mono<ResponseEntity<CustomerDto>> addBankAccount(
 	  @RequestBody Mono<CustomerDto> customerDtoMono, @PathVariable String id) {

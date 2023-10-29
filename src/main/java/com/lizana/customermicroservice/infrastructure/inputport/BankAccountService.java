@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 public interface BankAccountService {
 
   public Mono<BankAccountDto> createdNewAccount(BankAccountDto bankAccountDto);
+
+  Mono<BankAccountDto> createdAdditionalAccount(BankAccountDto bankAccountDto);
 }
