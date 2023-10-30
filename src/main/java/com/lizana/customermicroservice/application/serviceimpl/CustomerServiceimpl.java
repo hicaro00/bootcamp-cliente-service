@@ -13,10 +13,10 @@ import reactor.core.publisher.Mono;
 @Service
 public class CustomerServiceimpl implements CustomerService {
   @Autowired
-  private CustomerRepository customerRepository;
+  CustomerRepository customerRepository;
 
   @Autowired
-  private CustomerEventsService customerEventsService;
+  CustomerEventsService customerEventsService;
 
   @Override
   public Flux<CustomerDto> getCustomers() {

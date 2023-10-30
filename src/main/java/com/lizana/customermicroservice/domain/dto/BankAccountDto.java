@@ -23,7 +23,7 @@ public class BankAccountDto {
   private int monthlyMovementLimit; //limite de movimientos mensuales
   private double maintenanceFee; //tarifa de mantenimiento
   private Date maturityDate;  //fecha de vencimiento
-  private List<Signatory> signatory; // personas firmantes o titular de la cuenta
+  private List<Signatory> signatoryes; // personas firmantes o titular de la cuenta
   private List<DepositAmountDto> deposits;  /// lista de depostos
   private List<WithdrawalAmountDto> withdrawalAmounts; //lista de retiros
   private double interestRate; //tasa de interes de la cuenta
