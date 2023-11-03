@@ -3,6 +3,7 @@ package com.lizana.customermicroservice.domain.entity;
 import com.lizana.customermicroservice.domain.dto.AddressDto;
 import com.lizana.customermicroservice.domain.dto.BankacountsList;
 import com.lizana.customermicroservice.domain.dto.EmergencyContactDto;
+import com.lizana.customermicroservice.domain.dto.ExistingCredits;
 import com.lizana.customermicroservice.domain.objetos.ClientStatus;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,10 @@ public class Customer {
     private String dateOfBirth; //fecha de nacimiento
     private List<BankacountsList> bankAccounts = new ArrayList<>(); //lista de cuetnas bancarias asociadas al cliente
     private List<String> creditCards = new ArrayList<>(); // lista de tarjetas de credito asociadas al clietne
-    private List<String> loans = new ArrayList<>(); // lista de creditos asociados al cliente
+    private List<ExistingCredits> loans = new ArrayList<>(); // lista de creditos asociados al cliente
     private List<AddressDto> addresses = new ArrayList<>(); //lista de direcciones asociadas al cliente
     private List<EmergencyContactDto> emergencyContacts = new ArrayList<>(); //lista de contactos de emergencia del cliente
+
+
+
 }

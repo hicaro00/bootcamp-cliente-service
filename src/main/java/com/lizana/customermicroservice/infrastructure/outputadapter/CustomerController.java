@@ -85,4 +85,20 @@ public class CustomerController {
 	});
   }
 
+  @PutMapping("/updatecredits/{id}")  //actualiza
+  @CrossOrigin
+  public Mono<ResponseEntity<CustomerDto>> addCredit(
+	  @RequestBody Mono<CustomerDto> customerDtoMono, @PathVariable String id) {
+	return customerDtoMono.flatMap(customerDto -> {
+	  Mono<CustomerDto> existCustomerDtoMOno = customerService.getById(id);
+	  return existCustomerDtoMOno.map(existCustomerDto -> {
+			existCustomerDto.getLoans().addAll(customerDto.getLoans());
+			return existCustomerDto;
+		  }).flatMap(updatedCustomerDto -> {
+			return customerService.updateCustomer(Mono.just(updatedCustomerDto), id);
+		  }).map(update -> ResponseEntity.status(HttpStatus.OK).body(update))
+		  .defaultIfEmpty(ResponseEntity.notFound().build());
+	});
+  }
+
 }

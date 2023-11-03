@@ -35,7 +35,7 @@ public class BankAccountServiceImp implements BankAccountService {
 
 	// Realiza la solicitud POST
 	return webClient.post()
-		.uri("http://bankaccount-service/account/associateaccount")
+		.uri("http://localhost:8090/account/associateaccount")
 		.body(Mono.just(bankAccountDto), BankAccountDto.class)
 		.retrieve()
 		.onStatus(HttpStatus::is4xxClientError, clientResponse ->
