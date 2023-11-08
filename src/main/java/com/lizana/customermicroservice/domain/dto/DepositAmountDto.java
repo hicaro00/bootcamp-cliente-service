@@ -1,6 +1,7 @@
 package com.lizana.customermicroservice.domain.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +12,10 @@ import lombok.NoArgsConstructor;
 public class DepositAmountDto {
 
 
-        private String depositoId;
+        private String movementId;
         private BigDecimal amount;
-        private Date depositDate;
+        private String originMovement;
+        private LocalDate dateOfMovement;
+        private String authorizationCode;
 
 }

@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class BankAccountServiceImp implements BankAccountService {
 
-  private static final String ACCOUNT_ADDSIGNATORY_ACCCOUNT_ID = "http://localhost:8090/account/addsignatory/{accountId}";
+  private static final String ACCOUNT_ADDSIGNATORY_ACCCOUNT_ID = "lb://bankaccount-service/account/addsignatory/{accountId}";
 
   @Autowired
    WebClient webClient;
@@ -35,7 +35,7 @@ public class BankAccountServiceImp implements BankAccountService {
 
 	// Realiza la solicitud POST
 	return webClient.post()
-		.uri("http://localhost:8090/account/associateaccount")
+		.uri("http://localhost:8081/account/associateaccount")//servico bankaaccount
 		.body(Mono.just(bankAccountDto), BankAccountDto.class)
 		.retrieve()
 		.onStatus(HttpStatus::is4xxClientError, clientResponse ->
